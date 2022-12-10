@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation System</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+        table.customers {
+            font-size: 30px;
+            width: 70%;
+            border: black solid 2px;
+            border-collapse: collapse;
+        }
+        th, td{
+            border: black solid 2px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+<center>
+    <h1>Seat Reservation System</h1>
+    <table class="customers">
+        <tr>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+            <th>E</th>
+        </tr>
+        <tr>
+            <td>1A</td>
+            <td>1B</td>
+            <td>1C</td>
+            <td>1D</td>
+            <td>1E</td>
+        </tr>
+        <tr>
+            <td>2A</td>
+            <td>2B</td>
+            <td>2C</td>
+            <td>2D</td>
+            <td>2E</td>
+        </tr>
+        <tr>
+            <td>3A</td>
+            <td>3B</td>
+            <td>3C</td>
+            <td>3D</td>
+            <td>3E</td>
+        </tr>
+        <tr>
+            <td>4A</td>
+            <td>4B</td>
+            <td>4C</td>
+            <td>4D</td>
+            <td>4E</td>
+        </tr>
+    </table>
+    <h2>There are 20 remaining customers</h2>
+
+    <form method="post" th:action="@{save}">
+        <label for="seat">Seat Code:</label><br>
+        <input type="text" id="seat" name="seat" value="" th:value="${customer.seatno}"><br>
+        <label for="name">Customer Name:</label><br>
+        <input type="text" id="name" name="name" value="" th:value="${customer.name}"><br><br>
+        <label for="date" >Transaction Date:</label><br>
+        <input type="date" id="date" name="date" value="" th:value="tdate"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <table class="table">
+    <thead>
+    <tr>
+        <th>Transaction Code</th>
+        <th>Date</th>
+        <th>Seat Number</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="s:${listCustomers}">
+        <td th:text="${s.getId()}"></td>
+        <td th:text="${s.getTdate()}"></td>
+        <td th:text="${s.getSeatno()}"></td>
+        <td th:text="${s.getName()}"></td>
+        <td>
+            <a class="btn btn-danger" onClick="return confirm('Are you sure you want to delete
+                            the record ?')" th:href="@{delete(id=${s.id})}">
+                Delete</a>
+        </td>
+
+        <td>
+            <a class="btn btn-success">
+                Edit</a>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+</center>
+</div>
+</body>
+</html>
